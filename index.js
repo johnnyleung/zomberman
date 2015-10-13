@@ -4,12 +4,14 @@ var socketIo = require('socket.io');
 var server = http.createServer();
 var app = socketIo(server);
 
-var initialize = require('init.js');
+var initialize = require('./init');
 
 
 // Initialization goes here
 //==============================
 var globalState = {};
+var globalMessageQueue = [];
+
 initialize(globalState);
 
 
