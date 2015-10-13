@@ -1,0 +1,45 @@
+var state = {
+
+    players: {
+
+        abc: { x: 0, y: 0, hasBomb: true },
+
+    },
+
+    scores: {
+
+        abc: 12,
+        def: 10,
+
+    },
+
+    bombs: {
+
+        0: { x: 0, y: 0, owner: 1 }
+
+    }
+
+};
+
+
+
+
+1 = block
+0 = passable
+
+var map = [
+    [0, 1, 0, 0, 0, 1],
+    [0, 1, 0, 0, 0, 1],
+];
+
+
+
+'PLAYER_JOIN'
+'PLAYER_ACTION_UP'
+'PLAYER_ACTION_DOWN'
+'PLAYER_ACTION_LEFT'
+'PLAYER_ACTION_RIGHT'
+'PLAYER_ACTION_BOMB'
+
+
+
