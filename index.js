@@ -73,7 +73,7 @@ setInterval(function () {
 
     app.emit('SERVER_STATE', globalState);
 
-}, serverTimerInterval);
+}, globalConfigs.serverTimerInterval);
 
 
 app.listen(3000);

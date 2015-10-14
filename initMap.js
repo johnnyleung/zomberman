@@ -13,3 +13,5 @@ function initMap(size_width, size_height, num_blocks){
 	}
 	return map;
 }
+
+module.exports = initMap;
