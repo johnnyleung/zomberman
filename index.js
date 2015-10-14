@@ -12,7 +12,14 @@ var processBombs = require('./processBombs');
 
 
 // Global configs
-var serverTimerInterval = 1000;
+var globalConfigs = {
+    map: {
+        width: 20,
+        height: 20,
+        numBlocks: 50,
+    },
+    serverTimerInterval: 1000
+};
 
 
 // Initialization goes here
@@ -27,7 +34,7 @@ var globalState = {
 };
 var globalMessageQueue = [];
 
-initialize(globalState);
+initialize(globalState, globalConfigs);
 
 
 app.on('connection', function(socket){
