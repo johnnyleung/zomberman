@@ -57,6 +57,7 @@ app.on('connection', function(socket){
     socket.on('PLAYER_ACTION_DOWN', addToMessageQueue('PLAYER_ACTION_DOWN'));
     socket.on('PLAYER_ACTION_LEFT', addToMessageQueue('PLAYER_ACTION_LEFT'));
     socket.on('PLAYER_ACTION_RIGHT', addToMessageQueue('PLAYER_ACTION_RIGHT'));
+    socket.on('PLAYER_ACTION_BOMB', addToMessageQueue('PLAYER_ACTION_BOMB'));
 });
 
 
