@@ -5,7 +5,10 @@ var server = http.createServer();
 var app = socketIo(server);
 
 var initialize = require('./init');
+var initPlayer = require('./initPlayer');
 var commandHandler = require('./commandHandler');
+var processMoves = require('./processMoves');
+var processBombs = require('./processBombs');
 
 
 // Global configs
@@ -29,6 +32,8 @@ initialize(globalState);
 
 app.on('connection', function(socket){
     var player = socket.conn.id;
+
+    initPlayer(globalState, socket.conn.id);
 
     function addToMessageQueue (command) {
         return function () {
