@@ -26,12 +26,12 @@ function gen_bomb_list(messages){
 	return bomb_list;
 }
 
-function player_in_bomb(player_id, bomber_id) {
+function player_in_bomb(player, bomber) {
 	// assume bomb range of 3
-	var bx = globalState.players[bomber_id].x;
-	var by = globalState.players[bomber_id].y;
-	var px = globalState.players[player_id].x;
-	var py = globalState.players[player_id].y;
+	var bx = bomber.x;
+	var by = bomber.y;
+	var px = player.x;
+	var py = player.y;
 
 	var a = bx - px;
 	var b = by - py;
@@ -39,13 +39,13 @@ function player_in_bomb(player_id, bomber_id) {
 	return Math.sqrt( a*a + b*b ) < 3;
 }
 
-function reset_player(player_id){
+function reset_player(globalState, player_id){
 	var new_pos = getUniquePosition(player_id);
 	globalState.players[player_id].x = new_pos.x;
 	globalState.players[player_id].y = new_pos.y;
 }
 
-function bomb(messages) {
+function processBombs(globalState, messages) {
 	// for all players,
 	//   for all bombs,
 	//      is player within bomb radius? (square... easier :P)
@@ -57,8 +57,10 @@ function bomb(messages) {
 	for (var player_id in globalState.players) {
 		if (globalState.players.hasOwnProperty(player_id)) {
 			bomb_list.forEach(function(bomber_id){
-				if (player_in_bomb(player_id, bomber_id) && player_id != bomber_id) {
-					reset_player(player_id);
+				player = globalState.players[player_id];
+				bomber = globalState.players[bomber_id];
+				if (player_in_bomb(player, bomber) && player_id != bomber_id) {
+					reset_player(globalState, player_id);
 				}
 
 				// reset bomb to false
@@ -69,3 +71,4 @@ function bomb(messages) {
 
 }
 
+module.exports = processBombs;
