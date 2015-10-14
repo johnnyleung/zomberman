@@ -33,7 +33,7 @@ app.on('connection', function(socket){
 
 // Update all clients with global state
 setInterval(function () {
-    socket.emit('SERVER_STATE', globalState);
+    app.emit('SERVER_STATE', globalState);
 }, serverTimerInterval);
 
 

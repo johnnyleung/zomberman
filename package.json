@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/johnnyleung/zomberman/issues"
   },
-  "homepage": "https://github.com/johnnyleung/zomberman"
+  "homepage": "https://github.com/johnnyleung/zomberman",
+  "dependencies": {
+    "socket.io-client": "^1.3.7"
+  }
 }
