@@ -13,7 +13,14 @@ var serverTimerInterval = 1000;
 
 // Initialization goes here
 //==============================
-var globalState = {};
+
+// Default
+var globalState = {
+    players: {},
+    scores: {},
+    bombs: {},
+    map: [],
+};
 var globalMessageQueue = [];
 
 initialize(globalState);
