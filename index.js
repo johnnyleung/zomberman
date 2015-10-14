@@ -5,7 +5,10 @@ var server = http.createServer();
 var app = socketIo(server);
 
 var initialize = require('./init');
+var initPlayer = require('./initPlayer');
 var commandHandler = require('./commandHandler');
+var processMoves = require('./processMoves');
+var processBombs = require('./processBombs');
 
 
 // Global configs
@@ -30,26 +33,39 @@ initialize(globalState);
 app.on('connection', function(socket){
     var player = socket.conn.id;
 
-    function sendToCommandHandler (command) {
+    initPlayer(globalState, socket.conn.id);
+
+    function addToMessageQueue (command) {
         return function () {
-            commandHandler({
+            globalMessageQueue.push({
                 player: player,
-                type: command
+                type: command,
+                timestamp: Date.now(),
             });
         };
     }
 
-    socket.on('PLAYER_JOIN', sendToCommandHandler('PLAYER_JOIN'));
-    socket.on('PLAYER_ACTION_UP', sendToCommandHandler('PLAYER_ACTION_UP'));
-    socket.on('PLAYER_ACTION_DOWN', sendToCommandHandler('PLAYER_ACTION_DOWN'));
-    socket.on('PLAYER_ACTION_LEFT', sendToCommandHandler('PLAYER_ACTION_LEFT'));
-    socket.on('PLAYER_ACTION_RIGHT', sendToCommandHandler('PLAYER_ACTION_RIGHT'));
+    socket.on('PLAYER_JOIN', addToMessageQueue('PLAYER_JOIN'));
+    socket.on('PLAYER_ACTION_UP', addToMessageQueue('PLAYER_ACTION_UP'));
+    socket.on('PLAYER_ACTION_DOWN', addToMessageQueue('PLAYER_ACTION_DOWN'));
+    socket.on('PLAYER_ACTION_LEFT', addToMessageQueue('PLAYER_ACTION_LEFT'));
+    socket.on('PLAYER_ACTION_RIGHT', addToMessageQueue('PLAYER_ACTION_RIGHT'));
 });
 
 
 // Update all clients with global state
 setInterval(function () {
+
+    var messageQueueToBeProcessed = globalMessageQueue.slice();
+    globalMessageQueue.length = 0;
+
+    var filteredCommands = commandHandler(messageQueueToBeProcessed);
+
+    processMoves(globalState, filteredCommands);
+    processBombs(globalState, filteredCommands);
+
     app.emit('SERVER_STATE', globalState);
+
 }, serverTimerInterval);
 
 
