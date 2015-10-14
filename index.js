@@ -27,7 +27,7 @@ initialize(globalState);
 
 
 app.on('connection', function(socket){
-    console.log('a user connected');
+    console.log('a user connected', socket.conn.id);
 });
 
 
