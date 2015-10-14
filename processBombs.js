@@ -57,8 +57,8 @@ function processBombs(globalState, messages) {
 	for (var player_id in globalState.players) {
 		if (globalState.players.hasOwnProperty(player_id)) {
 			bomb_list.forEach(function(bomber_id){
-				player = globalState.players[player_id];
-				bomber = globalState.players[bomber_id];
+				var player = globalState.players[player_id];
+				var bomber = globalState.players[bomber_id];
 				if (player_in_bomb(player, bomber) && player_id != bomber_id) {
 					reset_player(globalState, player_id);
 				}
