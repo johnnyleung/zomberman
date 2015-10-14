@@ -5,6 +5,7 @@ var server = http.createServer();
 var app = socketIo(server);
 
 var initialize = require('./init');
+var commandHandler = require('./commandHandler');
 
 
 // Global configs
@@ -27,7 +28,22 @@ initialize(globalState);
 
 
 app.on('connection', function(socket){
-    console.log('a user connected', socket.conn.id);
+    var player = socket.conn.id;
+
+    function sendToCommandHandler (command) {
+        return function () {
+            commandHandler({
+                player: player,
+                type: command
+            });
+        };
+    }
+
+    socket.on('PLAYER_JOIN', sendToCommandHandler('PLAYER_JOIN'));
+    socket.on('PLAYER_ACTION_UP', sendToCommandHandler('PLAYER_ACTION_UP'));
+    socket.on('PLAYER_ACTION_DOWN', sendToCommandHandler('PLAYER_ACTION_DOWN'));
+    socket.on('PLAYER_ACTION_LEFT', sendToCommandHandler('PLAYER_ACTION_LEFT'));
+    socket.on('PLAYER_ACTION_RIGHT', sendToCommandHandler('PLAYER_ACTION_RIGHT'));
 });
 
 
