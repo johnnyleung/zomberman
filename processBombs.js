@@ -3,17 +3,6 @@
 
  Depends on init_player.js
  Assumes movements have already been made.
- map format:
-
-	[
-	[0,0,0,0,1,0],
-	[0,1,0,1,0,0],
-	...
-	]
-
- global state object is:
- globalState
- 
 */
 
 function gen_bomb_list(messages){
