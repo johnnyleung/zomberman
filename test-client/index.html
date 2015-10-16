@@ -11,8 +11,8 @@
         <button id="PLAYER_ACTION_RIGHT">PLAYER_ACTION_RIGHT</button><br>
         <button id="PLAYER_ACTION_BOMB">PLAYER_ACTION_BOMB</button><br>
         <script type="text/javascript">
-            var socket = io('http://192.168.100.20:3000/');
-            socket.on('SERVER_STATE', function (state) { console.log('state', state); });
+            var socket = io('http://localhost:3000');
+            socket.on('SERVER_STATE', function (state) {});
 
             document.getElementById('PLAYER_JOIN')
                 .addEventListener('click', function () {

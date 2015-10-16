@@ -41,6 +41,9 @@ function processBombs(globalState, messages) {
 	// messages structure:
 	// [{'type': 'PLAYER_ACTION_BOMB', 'player': '...'}, ...]
 
+	if (messages == null)
+		return
+
 	var bomb_list = gen_bomb_list(messages);
 
 	for (var player_id in globalState.players) {
