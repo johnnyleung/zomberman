@@ -64,6 +64,13 @@ app.on('connection', function(socket){
 // Update all clients with global state
 setInterval(function () {
 
+    if (globalMessageQueue.length == 0) {
+	process.stdout.write('no messages\n');
+        return;
+    } else {
+	process.stdout.write('messages: ' + globalMessageQueue.toString());
+    }
+
     var messageQueueToBeProcessed = globalMessageQueue.slice();
     globalMessageQueue.length = 0;
 

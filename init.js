@@ -1,4 +1,5 @@
 var initMap = require('./initMap');
+var initPlayer = require('./initPlayer');
 
 // Initialize globalState here
 function initialization (globalState, globalConfigs) {

@@ -3,7 +3,6 @@ function illegal_move(player, map) {
 		for (var j = 0; j < map.length; j++) {
 			if (player.x == j && player.y == i) {
 				if (map[i][j] == 1) {
-					console.log('illegal move!');
 					return true;
 				} else {
 					return false;
@@ -46,15 +45,13 @@ function processMoves (state, commands) {
 	if (commands == null)
 		return;
 
-	process.stdout.write(state.players[commands.player]);
-
 	commands.forEach(function(command) {
 		if (command.type in moves) {
 			moves[command.type](state.players[command.player], state.map);
+			process.stdout.write(command.player + ' x moved to: ' + state.players[command.player].x.toString() + '\n');
+			process.stdout.write(command.player + ' y moved to: ' + state.players[command.player].y.toString());
 		}
 	});
-
-	console.log(state);
 }
 
 module.exports = processMoves;
