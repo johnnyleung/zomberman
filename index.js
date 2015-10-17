@@ -67,8 +67,6 @@ setInterval(function () {
     if (globalMessageQueue.length == 0) {
 	process.stdout.write('no messages\n');
         return;
-    } else {
-	process.stdout.write('messages: ' + globalMessageQueue.toString());
     }
 
     var messageQueueToBeProcessed = globalMessageQueue.slice();
@@ -78,6 +76,8 @@ setInterval(function () {
 
     processMoves(globalState, filteredCommands);
     processBombs(globalState, filteredCommands);
+
+    process.stdout.write('\ngame state: ' + JSON.stringify(globalState) + '\n');
 
     app.emit('SERVER_STATE', globalState);
 
