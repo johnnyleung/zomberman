@@ -48,6 +48,9 @@ function processMoves (state, commands) {
 	commands.forEach(function(command) {
 		if (command.type in moves) {
 			moves[command.type](state.players[command.player], state.map);
+
+			// TODO check if player moved over bomb. if so, set the hasBomb status to true!
+
 			process.stdout.write(command.player + ' x moved to: ' + state.players[command.player].x.toString() + '\n');
 			process.stdout.write(command.player + ' y moved to: ' + state.players[command.player].y.toString());
 		}
