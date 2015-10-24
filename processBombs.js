@@ -48,19 +48,25 @@ function processBombs(globalState, messages) {
 
 	for (var player_id in globalState.players) {
 		if (globalState.players.hasOwnProperty(player_id)) {
-			bomb_list.forEach(function(bomber_id){
+			for (var bomber_id in bomb_list) {
 				var player = globalState.players[player_id];
 				var bomber = globalState.players[bomber_id];
+
 				if (player_in_bomb(player, bomber) && player_id != bomber_id) {
 					reset_player(globalState, player_id);
 				}
 
 				// reset bomb to false
 				globalState.players[bomber_id].hasBomb = false;
-			});
+
+				// delete bomb
+				for (var bomb in globalState.bombs) {
+					if (bomb.player == player_id)
+						delete bomb;
+				}
+			}
 		}
 	}
-
 }
 
 module.exports = processBombs;

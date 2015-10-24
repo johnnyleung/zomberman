@@ -9,6 +9,7 @@ var initPlayer = require('./initPlayer');
 var commandHandler = require('./commandHandler');
 var processMoves = require('./processMoves');
 var processBombs = require('./processBombs');
+var initBomb = require('./initBomb');
 
 
 // Global configs
@@ -76,6 +77,7 @@ setInterval(function () {
 
     processMoves(globalState, filteredCommands);
     processBombs(globalState, filteredCommands);
+    initBomb(globalState);
 
     process.stdout.write('\ngame state: ' + JSON.stringify(globalState) + '\n');
 

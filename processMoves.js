@@ -45,16 +45,22 @@ function processMoves (state, commands) {
 	if (commands == null)
 		return;
 
-	commands.forEach(function(command) {
+	for (var command in commands) {
 		if (command.type in moves) {
 			moves[command.type](state.players[command.player], state.map);
 
-			// TODO check if player moved over bomb. if so, set the hasBomb status to true!
-
 			process.stdout.write(command.player + ' x moved to: ' + state.players[command.player].x.toString() + '\n');
 			process.stdout.write(command.player + ' y moved to: ' + state.players[command.player].y.toString());
+
+			// TODO check if player moved over bomb. if so, set the hasBomb status to true!
+			for (var bomb in state.bombs) {
+				if (bomb.x == state.players[command.player].x && bomb.y == state.players[command.player].y) {
+					state.players[command.player].hasBomb = true;
+					bomb.owner = command.player;
+				}
+			}
 		}
-	});
+	}
 }
 
 module.exports = processMoves;
