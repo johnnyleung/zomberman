@@ -48,7 +48,12 @@ function processBombs(globalState, messages) {
 
 	for (var player_id in globalState.players) {
 		if (globalState.players.hasOwnProperty(player_id)) {
-			for (var bomber_id in bomb_list) {
+			bomb_list.forEach( function(bomber_id) {
+				process.stdout.write('bomb_list: ');
+				console.log(bomb_list);
+				console.log('\nplayer_list: ' + JSON.stringify(globalState.players));
+				console.log('bomber_id: ' + bomber_id);
+				console.log('bomber: ' + JSON.stringify(globalState.players[bomber_id]));
 				var player = globalState.players[player_id];
 				var bomber = globalState.players[bomber_id];
 
@@ -64,7 +69,7 @@ function processBombs(globalState, messages) {
 					if (bomb.player == player_id)
 						delete bomb;
 				}
-			}
+			});
 		}
 	}
 }
