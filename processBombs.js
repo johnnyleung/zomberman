@@ -5,6 +5,8 @@
  Assumes movements have already been made.
 */
 
+var initBomb = require('./initBomb');
+
 function gen_bomb_list(messages){
 	var bomb_list = [];
 	messages.forEach(function(message) {

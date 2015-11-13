@@ -52,11 +52,14 @@ function processMoves (state, commands) {
 			process.stdout.write(command.player + ' x moved to: ' + state.players[command.player].x.toString() + '\n');
 			process.stdout.write(command.player + ' y moved to: ' + state.players[command.player].y.toString());
 
-			// TODO check if player moved over bomb. if so, set the hasBomb status to true!
+			// if the player goes over a bomb that isn't owned, the
+			// player now owns the bomb
 			for (var bomb in state.bombs) {
 				if (bomb.x == state.players[command.player].x && bomb.y == state.players[command.player].y) {
-					state.players[command.player].hasBomb = true;
-					bomb.owner = command.player;
+					if (bomb.player == "") {
+						state.players[command.player].hasBomb = true;
+						bomb.player = command.player;
+					}
 				}
 			}
 		}

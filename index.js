@@ -77,6 +77,8 @@ setInterval(function () {
 
     processMoves(globalState, filteredCommands);
     processBombs(globalState, filteredCommands);
+    // initBomb makes sure enough bombs exist in the ecosystem
+    // even after one has been blown up
     initBomb(globalState);
 
     process.stdout.write('\ngame state: ' + JSON.stringify(globalState) + '\n');
