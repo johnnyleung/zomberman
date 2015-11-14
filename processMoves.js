@@ -45,8 +45,11 @@ function processMoves (state, commands) {
 	if (commands == null)
 		return;
 
-	for (var command in commands) {
+	console.log(commands);
+
+	commands.forEach( function(command) {
 		if (command.type in moves) {
+			console.log('move is valid');
 			moves[command.type](state.players[command.player], state.map);
 
 			process.stdout.write(command.player + ' x moved to: ' + state.players[command.player].x.toString() + '\n');
@@ -63,7 +66,7 @@ function processMoves (state, commands) {
 				}
 			}
 		}
-	}
+	});
 }
 
 module.exports = processMoves;
